@@ -1,13 +1,23 @@
-let array = [1, 2, 3, 'asdas', true, [1, 2, 3]]
-console.log(array);
-console.log(array[2]);
-console.log(array[5][1]);
-array[3] = 'Hello';
-console.log(array);
-console.log(array.length);
-array.push('new value');
-console.log(array);
-array.push(1, 3, 4, 'asdasd', 'asdasd');
-console.log(array);
-let text = array.join('o');
-console.log(text);
+let obj = {
+    name: 'Jaskar',
+    age: 67,
+    looks: 'CL',
+    fruits: ['mango', 'banana', 'kiwi'],
+    hiir: {
+        age: 1,
+        name: 'Cornelius',
+        gender: 'male'
+    },
+    ParentName: 'Frederik',
+    a2sd: 'asd',
+    'parent-name': 'Name',
+    'a2sd': 'asd',
+    'some thing': 'asd2',
+};
+
+console.log(obj);
+console.log(obj.name);
+console.log(obj.fruits[1]);
+console.log(obj.hiir.name);
+console.log(obj['parent-name']);
+console.log(Object.keys(obj));
