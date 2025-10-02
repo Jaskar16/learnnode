@@ -1,0 +1,5 @@
+@use 'sass:color';
+$bgcolor:lime;
+html, body{
+    background: color.scale($bgcolor, $light);
+}
