@@ -1,5 +1,3 @@
-@use 'sass:color';
-$bgcolor:lime;
-html, body{
-    background: color.scale($bgcolor, $light);
-}
+@use "bootstrap/scss/bootstrap" with (
+    $primary: coral,
+);

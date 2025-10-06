@@ -20,15 +20,43 @@ export default {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"],
             },
-              {
-                test: /\.scss$/i,
-                use: ["style-loader","css-loader", "sass-loader"],
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sassOptions: {
+                                quietDeps: true
+                            }
+                        }
+                    }
+                ],
             },
+            {
+                test: /\.njk$/,
+                use: [
+                    {
+                        loader: 'simple-nunjucks-loader',
+                        options: {}
+                    }
+                ]
+            }
         ],
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/views/index.njk',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'about.html',
+            template: './src/views/about.njk',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'contacts.html',
+            template: './src/views/contacts.njk',
         })
     ],
 };
