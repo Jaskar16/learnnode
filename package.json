@@ -1,26 +1,20 @@
 {
   "name": "learnnode",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack -- mode development",
+    "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "serve": "webpack serve --mode development"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jaskar16/learnnode.git"
+    "serve": "webpack serve --mode development",
+    "deploy": "npm run build && surge ./dist kaspariscool.surge.sh"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Jaskar16/learnnode/issues"
-  },
-  "homepage": "https://github.com/Jaskar16/learnnode#readme",
+  "description": "",
   "dependencies": {
-    "bootstrap": "^5.3.8",
+    "bulma": "^1.0.4",
+    "surge": "^0.24.6",
     "webpack": "^5.101.3"
   },
   "devDependencies": {
@@ -28,8 +22,10 @@
     "html-webpack-plugin": "^5.6.4",
     "sass": "^1.93.2",
     "sass-loader": "^16.0.5",
-    "simple-nunjucks-loader": "^3.2.0",
     "style-loader": "^4.0.0",
+    "vue": "^3.5.22",
+    "vue-loader": "^17.4.2",
+    "vue-template-compiler": "^2.7.16",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   }

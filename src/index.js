@@ -1,6 +1,8 @@
 import './style.scss';
 
-console.log('Hello world!');
-import module from "./module";
+import { createApp } from 'vue';
 
-module.hello();
+import App from './App.vue';
+
+let app = createApp(App);
+app.mount('#app');
