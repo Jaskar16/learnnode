@@ -28,27 +28,25 @@ let toDoItems = computed(() => {
 
 </script>
 <template>
-<div class="container">
-    <div class="content">
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <input v-model="newItem" class="input" type="text" placeholder="Add item" @keydown.enter="addItem">
-            </div>
-            <div class="control">
-                <button class="button is-info" @click="addItem">
-                    Add item
-                </button>
-            </div>
-        </div>
-        <h1>{{ newItem }}</h1>
 
-        <ItemList :items="items" title="All Items"></ItemList>
-        <ItemList :items="doneItems" title="Done Items"></ItemList>
-        <ItemList :items="toDoItems" title="ToDo Items"></ItemList>
-        
-
-        <input v-model="code" class="input" type="number" placeholder="Enter Error code">
-        <img :src="'https://http.cat/' + code">
+<div class="field has-addons">
+    <div class="control is-expanded">
+        <input v-model="newItem" class="input" type="text" placeholder="Add item" @keydown.enter="addItem">
+    </div>
+    <div class="control">
+        <button class="button is-info" @click="addItem">
+            Add item
+        </button>
     </div>
 </div>
+<h1>{{ newItem }}</h1>
+
+<ItemList :items="items" title="All Items"></ItemList>
+<ItemList :items="doneItems" title="Done Items"></ItemList>
+<ItemList :items="toDoItems" title="ToDo Items"></ItemList>
+
+
+<input v-model="code" class="input" type="number" placeholder="Enter Error code">
+<img :src="'https://http.cat/' + code">
+
 </template>
