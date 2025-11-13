@@ -9,6 +9,7 @@ export default {
     filename: "main.js",
     path: path.resolve(import.meta.dirname, "dist"),
     clean: true,
+    assetModuleFilename: '[name][ext]',
   },
   devServer: {
     static: {
@@ -16,6 +17,7 @@ export default {
     },
     compress: true,
     port: 9000,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -42,11 +44,19 @@ export default {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html"
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: '200.html',
     }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
