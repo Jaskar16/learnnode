@@ -15,6 +15,11 @@ let coords = ref({
         {{ zoom }}   
         <button class="button is-primary" @click="coords={lat: 59.41641, lng:  24.79871}">Go to Airport</button>
     </div>
+    <div>
+        <input v-model="zoom" type="range" max="19" min="1" step="1">
+        {{ zoom }}   
+        <button class="button is-primary" @click="coords={lat: 59.31125, lng:  24.40120}">Go to Home</button>
+    </div>
     <Leaflet :lat="coords.lat" :lng="coords.lng" :zoom="zoom"></Leaflet>
     <Leaflet :lat="24.74344" :lng="59.42690" :zoom="5"></Leaflet>
 </template>
