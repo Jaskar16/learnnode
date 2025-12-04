@@ -1,44 +1,95 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import BuildingButton from '../components/BuildingButton.vue';
 
-let cookies = ref(0);
-let cps = ref(0);
+const cookies = ref(0);
+const cps = ref(0);
 
-setInterval(() => {
-    cookies.value += cps.value;
-}, 1000);
+const isBouncing = ref(false);
 
-let buildings = ref([
-    {name: 'Cursor', icon: '👆🏻', cps: 0.1, price: 15, count: 0},
-    {name: 'Grandma',icon: '👵🏻', cps: 1, price: 100, count: 0},
+const buildings = ref([
+  { id: 1, name: 'Cursor',  icon: '👆🏻', cps: 0.1, price: 15,  count: 0 },
+  { id: 2, name: 'Grandma', icon: '👵🏻', cps: 1,   price: 100, count: 0 },
 ]);
 
-function buyBuilding(building) {
-    if(cookies.value >= building.price) {
-        cookies.value -= building.price;
-        cps.value += building.cps;
-        building.count++;
-    }
+const cookiesDisplay = computed(() => Number(cookies.value.toFixed(1)));
+const cpsDisplay     = computed(() => Number(cps.value.toFixed(1)));
+
+let intervalId = null;
+
+onMounted(() => {
+  intervalId = setInterval(() => {
+    cookies.value += cps.value;
+  }, 1000);
+});
+
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId);
+});
+
+function clickCookie() {
+  cookies.value++;
+
+  isBouncing.value = true;
+  setTimeout(() => {
+    isBouncing.value = false;
+  }, 200);
 }
 
-
+function buyBuilding(building) {
+  if (cookies.value >= building.price) {
+    cookies.value -= building.price;
+    building.count++;
+    cps.value += building.cps;
+    building.price = Math.round(building.price * 1.15); // +15% iga ostuga
+  }
+}
 </script>
+
 <template>
-    <div class="columns">
-        <div class="column has-background-primary has-text-centered">
-            <h1>{{ parseFloat(cookies.toFixed(1)) }} cookies!</h1>
-            <h3>per second {{ parseFloat(cps.toFixed(1)) }}</h3>
-            <div @click="cookies++">
-                <img
-                    src="https://png.pngtree.com/png-vector/20250425/ourmid/pngtree-chocolate-chip-cookie-icon-white-background-png-image_16100260.png">
-            </div>
-        </div>
-        <div class="column has-background-warning">
-            test
-        </div>
-        <div class="column has-background-info">
-           <BuildingButton v-for="building in buildings" :building="building" :disabled="cookies<building.price" @click="buyBuilding(building)"></BuildingButton>
-        </div>
+  <div class="columns">
+
+    <div class="column has-background-primary has-text-centered">
+      <h1 class="title is-3">{{ cookiesDisplay }} cookies!</h1>
+      <h3 class="subtitle is-5">per second: {{ cpsDisplay }}</h3>
+
+      <div @click="clickCookie" style="cursor: pointer;">
+        <img
+          :class="['cookie-img', { bounce: isBouncing }]"
+          src="https://png.pngtree.com/png-vector/20250425/ourmid/pngtree-chocolate-chip-cookie-icon-white-background-png-image_16100260.png"
+          alt="Cookie"
+          style="max-width: 250px;"
+        />
+        <p>(klikiga küpsise peale!)</p>
+      </div>
     </div>
+
+    <div class="column has-background-warning has-text-centered">
+      <h2 class="title is-4">Info</h2>
+      <p>Iga ostuga läheb hind 15% kallimaks.</p>
+    </div>
+
+    <div class="column has-background-info">
+      <h2 class="title is-4">Buildings</h2>
+
+      <BuildingButton
+        v-for="building in buildings"
+        :key="building.id"
+        :building="building"
+        :disabled="cookies < building.price"
+        @click="buyBuilding(building)"
+      />
+    </div>
+  </div>
 </template>
+
+<style>
+
+.cookie-img {
+  transition: transform 0.2s ease;
+}
+
+.cookie-img.bounce {
+  transform: translateY(-20px) scale(1.05);
+}
+</style>
