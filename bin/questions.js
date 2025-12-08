@@ -1,17 +1,61 @@
 import inquirer from "inquirer";
 
-let answers = await inquirer.prompt([
+inquirer
+  .prompt([
     {
-        type: 'input',
-        name: 'name',
-        message: 'What is your name?',
+      type: "input",
+      name: "username",
+      message: "Mis on sinu nimi?"
     },
     {
-        type: 'number',
-        name: 'age',
-        message: 'What is your age?',
+      type: "password",
+      name: "password",
+      message: "Sisesta parool:"
     },
-]);
-
-console.log(`Hello ${answers.name}!!!!`);
-console.log(`You are ${answers.age} years old!`);
+    {
+      type: "confirm",
+      name: "confirm",
+      message: "Kas oled kindel?",
+      default: false
+    },
+    {
+      type: "number",
+      name: "age",
+      message: "Mitme aastane oled?"
+    },
+    {
+      type: "list",
+      name: "color",
+      message: "Vali värv:",
+      choices: ["Punane", "Sinine", "Roheline"]
+    },
+    {
+      type: "rawlist",
+      name: "pet",
+      message: "Vali lemmikloom:",
+      choices: ["Koer", "Kass", "Papagoi"]
+    },
+    {
+      type: "expand",
+      name: "expandTest",
+      message: "Täpsusta valik:",
+      choices: [
+        { key: "a", name: "Valik A", value: "A" },
+        { key: "b", name: "Valik B", value: "B" }
+      ]
+    },
+    {
+      type: "checkbox",
+      name: "hobbies",
+      message: "Vali hobid:",
+      choices: ["Sport", "Joonistamine", "Koodimine", "Muusika"]
+    },
+    {
+      type: "editor",
+      name: "bio",
+      message: "Kirjelda ennast tekstina (avab süsteemi tekstiredaktori)"
+    }
+  ])
+  .then((answers) => {
+    console.log("Vastused:", answers);
+  });
